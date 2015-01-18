@@ -24,23 +24,23 @@ define(["jquery"], function($) {
             return $table;
         }
 
-		function updateName(name) {
-			$el.find('th').html(name);
-		}
+    	function updateName(name) {
+    		$el.find('th').html(name);
+    	}
 
         function clear() {
-        	$el.find('td').removeClass('hit destroyed blast detect radar');
+            $el.find('td').removeClass('hit destroyed blast detect radar');
 
-        	Object.keys(positions).forEach(function(key) {
-	        	addClass(positions[key].x, positions[key].y, positions.botClass);
-        	});
+            Object.keys(positions).forEach(function(key) {
+            	addClass(positions[key].x, positions[key].y, positions.botClass);
+            });
         }
 
-		function gotHit(id) {
-			if (positions[id]) {
-				hit(positions[id].x, positions[id].y);
-			}
-		}
+    	function gotHit(id) {
+    		if (positions[id]) {
+    			hit(positions[id].x, positions[id].y);
+    		}
+    	}
 
         function hit(x, y) {
             addClass(x, y, "hit");
@@ -63,9 +63,9 @@ define(["jquery"], function($) {
                 removeClass(positions[id].x, positions[id].y, positions[id].botClass);
             }
             if (dead) {
-            	botClass = "destroyed";
+                botClass = "destroyed";
             }
-			positions[id] = {x: x, y: y, botClass: botClass};
+    		positions[id] = {x: x, y: y, botClass: botClass};
 
             addClass(x, y, botClass);
         }
@@ -105,5 +105,5 @@ define(["jquery"], function($) {
             detect: detect,
             clear: clear
         }
-	}
+    }
 });
