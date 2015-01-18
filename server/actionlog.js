@@ -6,7 +6,7 @@ function getStartData(teams, players) {
             id: index,
             team: team,
             bots: _botsByTeam(team, players)
-        }
+        };
     });
 }
 
@@ -17,7 +17,7 @@ function _botsByTeam(team, players) {
             "name": bot.name,
             "x": bot.pos.x,
             "y": bot.pos.y
-        }
+        };
     });
 }
 
@@ -26,7 +26,7 @@ function _mapAction(bot, action) {
         botId: bot.id,
         x: action.x,
         y: action.y
-    }
+    };
 }
 
 function _mapActions(players, action) {
@@ -44,10 +44,10 @@ function getTurnActions(players) {
         radars: _mapActions(players, "radar"),
         moves: _mapActions(players, "move"),
         cannons: _mapActions(players, "cannon")
-    }
+    };
 }
 
 module.exports = {
     getStartData: getStartData,
     getTurnActions: getTurnActions
-}
+};

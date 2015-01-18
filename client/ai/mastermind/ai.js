@@ -12,7 +12,7 @@ define(["lodash"], function(_) {
         function _prepareAction(action, x, y) {
             return function() {
                 action(x,y);
-            }
+            };
         }
 
         function planForAttack(plannedActions, players, x, y) {
@@ -23,13 +23,13 @@ define(["lodash"], function(_) {
                     result[key] = {
                         mode: "ATTACK",
                         action: _prepareAction(players[key].cannon, x, y)
-                    }
+                    };
                 }
                 return result;
             }, {});
         }
 
-        var lastTarget = {}
+        var lastTarget = {};
         /**
          * The mastermind bot controls all the bots at one team.
          * The logic is following:
@@ -94,6 +94,6 @@ define(["lodash"], function(_) {
             botNames: botNames,
             teamName: teamName,
             makeDecisions: makeDecisions
-        }
-    }
+        };
+    };
 });

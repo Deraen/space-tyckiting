@@ -60,6 +60,6 @@ define([
             updateBot: updateBot,
             reset: reset,
             getBotClass: getBotClass
-        }
-    }
+        };
+    };
 });

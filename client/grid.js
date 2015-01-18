@@ -1,10 +1,8 @@
 define(["jquery"], function($) {
 
     return function($el, name, width, height, blastRadius, detectRadius) {
-        var width = width;
-        var height = height;
-        var blastRadius = blastRadius || 0;
-        var detectRadius = detectRadius || 0;
+        blastRadius = blastRadius || 0;
+        detectRadius = detectRadius || 0;
         var positions = {};
 
         function createMap(width, height) {
@@ -24,23 +22,23 @@ define(["jquery"], function($) {
             return $table;
         }
 
-    	function updateName(name) {
-    		$el.find('th').html(name);
-    	}
+        function updateName(name) {
+            $el.find('th').html(name);
+        }
 
         function clear() {
             $el.find('td').removeClass('hit destroyed blast detect radar');
 
             Object.keys(positions).forEach(function(key) {
-            	addClass(positions[key].x, positions[key].y, positions.botClass);
+                addClass(positions[key].x, positions[key].y, positions.botClass);
             });
         }
 
-    	function gotHit(id) {
-    		if (positions[id]) {
-    			hit(positions[id].x, positions[id].y);
-    		}
-    	}
+        function gotHit(id) {
+            if (positions[id]) {
+                hit(positions[id].x, positions[id].y);
+            }
+        }
 
         function hit(x, y) {
             addClass(x, y, "hit");
@@ -65,7 +63,7 @@ define(["jquery"], function($) {
             if (dead) {
                 botClass = "destroyed";
             }
-    		positions[id] = {x: x, y: y, botClass: botClass};
+            positions[id] = {x: x, y: y, botClass: botClass};
 
             addClass(x, y, botClass);
         }
@@ -104,6 +102,6 @@ define(["jquery"], function($) {
             drawRadar: drawRadar,
             detect: detect,
             clear: clear
-        }
-    }
+        };
+    };
 });

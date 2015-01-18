@@ -177,11 +177,11 @@ function Game(config) {
                 }, config.loopTime);
             }
         };
-    };
+    }
 
     return {
         startListening: startListening
-    }
+    };
 }
 
 module.exports = Game;

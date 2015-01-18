@@ -1,5 +1,6 @@
 define([
     'jquery',
+    'lodash',
     'socket-io',
     'promise',
     'messageBox',
@@ -7,6 +8,7 @@ define([
     'ui',
     './bots/_current/ai'],
     function($,
+             _,
              io,
              Promise,
              MessageBox,
@@ -18,9 +20,6 @@ define([
     var TARGET_URL = 'http://localhost:3000';
 
     var ai = new Ai();
-
-
-    createBots(ai, BOT_COUNT);
 
     function createBots(ai, botCount) {
 
@@ -39,10 +38,6 @@ define([
         var opponents = [];
 
         var botIdMap = {};
-
-        for (var i = 0; i < botCount; ++i) {
-            createBot(ai, i);
-        }
 
         function createBot(ai, botIndex) {
 
@@ -69,13 +64,13 @@ define([
                     opponents = data.opponents;
 
                     function action(type, x, y) {
-                        var action = {
+                        var data = {
                             type: type,
                             x: x,
                             y: y
                         };
-                        botIdMap[botId].lastAction = action;
-                        socket.emit("action", action);
+                        botIdMap[botId].lastAction = data;
+                        socket.emit("action", data);
                     }
 
                     function move(x, y) {
@@ -135,7 +130,7 @@ define([
 
                             grid.clear();
 
-                            _.where(events, { event:'team' }).forEach(function(team) {
+                            _.where(events, { event:'team' }).forEach(function(team) {
                                 team.data.forEach(function(bot) {
                                     botIdMap[bot.id].hp = bot.hp;
                                     if (botIdMap[bot.id].hp <= 0) {
@@ -145,16 +140,16 @@ define([
                                     botIdMap[bot.id].y = bot.y;
                                     grid.updatePosition(bot.id, bot.x, bot.y, botIdMap[bot.id].bot_class, botIdMap[bot.id].dead);
                                     ui.updateBot(bot);
-                                })
+                                });
                             });
 
                             _.where(events, {event:'die'}).forEach(function(death) {
-                                grid.drawDestroyed(death.data.x, death.data.y)
+                                grid.drawDestroyed(death.data.x, death.data.y);
                                 if (death.data.team !== botTeam) {
                                     var opponent = _.findWhere(opponents, {id: death.data.id});
                                     if (!_.isUndefined(opponent)) {
                                         opponent.dead = true;
-                                    };
+                                    }
                                 }
                             });
 
@@ -198,8 +193,13 @@ define([
 
             function showNotification(message) {
                 $map.find('.notification').remove();
-                $map.append('<div class="notification">' + message + '</div>')
+                $map.append('<div class="notification">' + message + '</div>');
             }
+        }
+
+
+        for (var i = 0; i < botCount; ++i) {
+            createBot(ai, i);
         }
 
         function clearMessages() {
@@ -210,4 +210,6 @@ define([
             messageBox.addMessage(source, id, message, friend ? 'friend' : 'foe');
         }
     }
+
+    createBots(ai, BOT_COUNT);
 });

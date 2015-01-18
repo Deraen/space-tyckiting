@@ -8,7 +8,7 @@ function getRoundStartMessage(counter) {
         data: {
             roundId: counter
         }
-    }
+    };
 }
 
 function getNoActionMessagesByTeam(noActionBots, team) {
@@ -33,7 +33,7 @@ function getMessages(players) {
                     source: _playerInfo(player),
                     message: player.message
                 }
-            })
+            });
         }
         return memo;
     }, []);
@@ -44,7 +44,7 @@ function getMoveMessagesByPlayer(moves, player) {
         return {
             event: "move",
             data: move
-        }
+        };
     });
 }
 
@@ -55,7 +55,7 @@ function getDetectedMessagesByPlayer(radars, player) {
             data: {
                 id: player.id
             }
-        }
+        };
     } else {
         return [];
     }
@@ -70,7 +70,7 @@ function getRadarMessagesByPlayer(radars, player) {
             source: player.id,
             "positions" : detections
         }
-    }
+    };
 }
 
 function getCannonMessagesByPlayer(cannons, player) {
@@ -81,7 +81,7 @@ function getCannonMessagesByPlayer(cannons, player) {
         return {
             event: "hit",
             data: message
-        }
+        };
     });
     damages = damages.concat(_.where(cannons, {"target": player}).map(function(event) {
         var playerInfo = _playerInfo(player);
@@ -89,7 +89,7 @@ function getCannonMessagesByPlayer(cannons, player) {
         return {
             event: "hit",
             data: playerInfo
-        }
+        };
     }));
     return damages;
 }
@@ -114,7 +114,7 @@ function endMessage(players, teams) {
     } else {
         message.data.winner = {
             team: winners[0].team
-        }
+        };
     }
     return message;
 }
@@ -179,7 +179,7 @@ function getTeamStatusMessage(players, team) {
     return {
         event: "team",
         data: bots
-    }
+    };
 }
 
 function getMessagesByTeam(func) {
@@ -191,7 +191,7 @@ function getMessagesByTeam(func) {
                 return memo;
             }
         }, []);
-    }
+    };
 }
 
 module.exports = {
@@ -209,4 +209,4 @@ module.exports = {
     getTeamStatusMessage: getTeamStatusMessage,
     startMessage: startMessage,
     endMessage: endMessage
-}
+};

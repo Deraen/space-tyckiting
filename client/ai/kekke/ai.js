@@ -60,7 +60,7 @@ define(['lodash'], function(_) {
                 var yMove = randInt(-2, 2);
                 bot.move(bot.x + xMove, bot.y + yMove);
             });
-            console.log(events)
+            console.log(events);
         }
 
         function randInt(min, max) {
@@ -76,5 +76,5 @@ define(['lodash'], function(_) {
             teamName: teamName,
             makeDecisions: makeDecisions
         };
-    }
+    };
 });

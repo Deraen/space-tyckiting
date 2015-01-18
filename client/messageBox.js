@@ -1,5 +1,4 @@
 define(["jquery"], function($) {
-
     return function() {
 
         var messages = {};
@@ -25,6 +24,6 @@ define(["jquery"], function($) {
         return {
             clear: clear,
             addMessage: addMessage
-        }
-    }
+        };
+    };
 });

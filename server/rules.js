@@ -87,7 +87,7 @@ function _handleBlast(tanks, radius, player) {
             source: player.id,
             target: tank,
             damage: _isDirect(tank.pos, player.action) ? 2 : 1
-        }
+        };
     });
 }
 
@@ -98,7 +98,7 @@ function _handleRadar(tanks, radius, player) {
             memo.push({
                 source: player.id,
                 target: tank
-            })
+            });
         }
         return memo;
     }, []);
@@ -150,7 +150,7 @@ function isFinished(players, counter, maxCount) {
     }
 
     var activePlayers = _.filter(players, function(player) {
-        return player.hp > 0 && player.active
+        return player.hp > 0 && player.active;
     });
 
     // Only one team or no teams left
