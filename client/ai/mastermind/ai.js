@@ -9,12 +9,6 @@ define(["lodash"], function(_) {
 
     return function Ai() {
 
-        function _prepareAction(action, x, y) {
-            return function() {
-                action(x,y);
-            };
-        }
-
         function planForAttack(plannedActions, players, x, y) {
             return _.reduce(plannedActions, function(result, value, key) {
                 if (value.mode === "EVADE") {
@@ -22,7 +16,7 @@ define(["lodash"], function(_) {
                 } else {
                     result[key] = {
                         mode: "ATTACK",
-                        action: _prepareAction(players[key].cannon, x, y)
+                        action: _.partial(players[key].cannon, x, y)
                     };
                 }
                 return result;
@@ -55,7 +49,7 @@ define(["lodash"], function(_) {
                     var y = Math.floor(Math.random() * config.height);
                     memo[player.id] =  {
                         mode: "RADAR",
-                        action: _prepareAction(player.radar, x, y)
+                        action: _.partial(player.radar, x, y)
                     };
                 }
                 return memo;
@@ -71,7 +65,7 @@ define(["lodash"], function(_) {
 
                         plannedActions[event.data.id] = {
                             mode: "EVADE",
-                            action: _prepareAction(player.move, x, y)
+                            action: _.partial(player.move, x, y)
                         };
                     } else {
                         plannedActions = planForAttack(plannedActions, players, lastTarget.x, lastTarget.y);
